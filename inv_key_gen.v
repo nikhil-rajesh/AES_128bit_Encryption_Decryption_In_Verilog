@@ -17,6 +17,7 @@ round_key r9(key8,32'h1b000000,key9);
 round_key r10(key9,32'h36000000,key10);
 
 endmodule
+
 module round_key(temp_key,rcon,ko);
 
 input [0:127] temp_key;
