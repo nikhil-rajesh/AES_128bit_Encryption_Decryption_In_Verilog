@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module inv_key_gen(temp_key,mx_key,rcon,ko,r_key);
+module invkey_gen(temp_key,mx_key,rcon,ko,r_key);
 
 input [0:127] temp_key,mx_key;
 input [0:31] rcon;

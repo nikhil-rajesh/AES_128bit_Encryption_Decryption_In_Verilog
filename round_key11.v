@@ -1,44 +1,22 @@
 `timescale 1ns / 1ps
 
-module round_key11(key1,key11);
+module round_key11(key0,key1,key2,key3,key4,key5,key6,key7,key8,key9,key10);
 
-input [0:127] key1;
-output [0:127] key11;
-wire [0:127] temp_key2;
-reg [0:127] temp_key1;
-wire [0:31] rcon [10],rc;
+input [0:127] key0;
+output [0:127] key1,key2,key3,key4,key5,key6,key7,key8,key9,key10;
 
-assign rcon [9] = 32'h36000000;
-assign rcon [8] = 32'h1b000000;
-assign rcon [7] = 32'h80000000;
-assign rcon [6] = 32'h40000000;
-assign rcon [5] = 32'h20000000;
-assign rcon [4] = 32'h10000000;
-assign rcon [3] = 32'h08000000;
-assign rcon [2] = 32'h04000000;
-assign rcon [1] = 32'h02000000;
-assign rcon [0] = 32'h01000000;
-integer i;
-always @(key1)
-begin
-    temp_key1 = key1;
-    rc = rcon[0];
-    i = 1;
-end
-round_key r1(temp_key1,temp_key2);
-always@(temp_key2)
-begin
-    if(i < 10)
-    begin
-    temp_key1 = temp_key2;
-    rc = rcon[i];
-    i = i+1;
-    end
-    else
-        assign key11 = temp_key2;
-end
+round_key r1(key0,32'h01000000,key1);
+round_key r2(key1,32'h02000000,key2);
+round_key r3(key2,32'h04000000,key3);
+round_key r4(key3,32'h08000000,key4);
+round_key r5(key4,32'h10000000,key5);
+round_key r6(key5,32'h20000000,key6);
+round_key r7(key6,32'h40000000,key7);
+round_key r8(key7,32'h80000000,key8);
+round_key r9(key8,32'h1b000000,key9);
+round_key r10(key9,32'h36000000,key10);
+
 endmodule
-
 module round_key(temp_key,rcon,ko);
 
 input [0:127] temp_key;
