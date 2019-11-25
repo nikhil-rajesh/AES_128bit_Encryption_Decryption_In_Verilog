@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 module mix_col(i_shift,i_mix);
 input [0:127]i_shift;
 output [0:127]i_mix;

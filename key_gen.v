@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 module key_gen(temp_key,mx_key,rcon,ko,r_key);
 
 input [0:127] temp_key,mx_key;

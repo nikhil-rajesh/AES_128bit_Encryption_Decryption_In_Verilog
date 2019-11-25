@@ -20,10 +20,10 @@ begin
 	k1=k1+8;
 end
 end
-main main1(data1,cipher_key[0:127],en_key1);
-main main2(data2,cipher_key[128:255],en_key2);
-main main3(data3,cipher_key[256:383],en_key3);
-main main4(data4,cipher_key[384:511],en_key4);
+aes128_encryption aes128_encryption1(data1,cipher_key[0:127],en_key1);
+aes128_encryption aes128_encryption2(data2,cipher_key[128:255],en_key2);
+aes128_encryption aes128_encryption3(data3,cipher_key[256:383],en_key3);
+aes128_encryption aes128_encryption4(data4,cipher_key[384:511],en_key4);
 
 assign encrypted_data = {en_key1,en_key2,en_key3,en_key4};
 endmodule

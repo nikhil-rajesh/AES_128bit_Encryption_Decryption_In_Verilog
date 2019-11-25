@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 module inv_sub_byte(in_key,out_key);
 input [0:127] in_key;
 output [0:127] out_key;

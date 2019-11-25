@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 module inv_shift_row(s_state,shifted_state);
 
 input [0:127] s_state;
