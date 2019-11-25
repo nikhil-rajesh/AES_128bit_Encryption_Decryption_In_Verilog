@@ -1,4 +1,4 @@
-module decryption(en_msg,cipher_key,de_msg);
+module aes128_decryption(en_msg,cipher_key,de_msg);
 
 output [0:127]de_msg;
 input [0:127]en_msg,cipher_key;

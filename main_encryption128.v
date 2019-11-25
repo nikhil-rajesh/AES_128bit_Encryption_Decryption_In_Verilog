@@ -1,6 +1,4 @@
-`timescale 1ns / 1ps
-
-module main(data,key,en_key);//
+module aes128_encryption(data,key,en_key);
 input [0:127] data,key;
 output [0:127] en_key;
 wire [0:127] en_key0,en_key1,en_key2,en_key3,en_key4,en_key5,en_key6,en_key7,en_key8;
