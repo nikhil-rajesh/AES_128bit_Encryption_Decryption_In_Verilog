@@ -16,21 +16,21 @@ round_key r10(key9,32'h36000000,key10);
 
 endmodule
 
-module round_key(temp_key,rcon,ko);
+module round_key(previous_key,rcon,nextkey);
 
-input [0:127] temp_key;
+input [0:127] previous_key;
 input [0:31] rcon;
-output [0:127] ko;
-wire [0:127] ko;
+output [0:127] nextkey;
+wire [0:127] nextkey;
 
 //shifting operation
 
 wire [0:127] key,key2;
-assign key[0:95]    = temp_key[0:95];
-assign key[96:103]  = temp_key[104:111];
-assign key[104:111] = temp_key[112:119];
-assign key[112:119] = temp_key[120:127];
-assign key[120:127] = temp_key[96:103];
+assign key[0:95]    = previous_key[0:95];
+assign key[96:103]  = previous_key[104:111];
+assign key[104:111] = previous_key[112:119];
+assign key[112:119] = previous_key[120:127];
+assign key[120:127] = previous_key[96:103];
 
 //sub_bytes operation
 
@@ -41,11 +41,11 @@ sbox s4(key[120:123],key[124:127],key2[120:127]);
 
 //multiplication with rcon values
 //xor with different columns
-//ko is also numbered column wise
+//nextkey is also numbered column wise
 
-assign ko[0:31]  = key2[96:127]^key[0:31]^rcon[0:31]; 
-assign ko[32:63]  = key2[96:127]^key[0:31]^key[32:63]^rcon[0:31]; 
-assign ko[64:95]  = key2[96:127]^key[0:31]^key[32:63]^key[64:95]^rcon[0:31]; 
-assign ko[96:127]  = key2[96:127]^key[0:31]^key[32:63]^key[64:95]^temp_key[96:127]^rcon[0:31]; 
+assign nextkey[0:31]  = key2[96:127]^key[0:31]^rcon[0:31]; 
+assign nextkey[32:63]  = key2[96:127]^key[0:31]^key[32:63]^rcon[0:31]; 
+assign nextkey[64:95]  = key2[96:127]^key[0:31]^key[32:63]^key[64:95]^rcon[0:31]; 
+assign nextkey[96:127]  = key2[96:127]^key[0:31]^key[32:63]^key[64:95]^previous_key[96:127]^rcon[0:31]; 
 
 endmodule

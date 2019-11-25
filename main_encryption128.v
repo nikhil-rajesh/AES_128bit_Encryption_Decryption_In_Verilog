@@ -1,74 +1,74 @@
-module aes128_encryption(data,key,en_key);
-input [0:127] data,key;
-output [0:127] en_key;
-wire [0:127] en_key0,en_key1,en_key2,en_key3,en_key4,en_key5,en_key6,en_key7,en_key8;
-wire [0:127] s_key0,s_key1,s_key2,s_key3,s_key4,s_key5,s_key6,s_key7,s_key8,s_key9;
-wire [0:127] sh_key0,sh_key1,sh_key2,sh_key3,sh_key4,sh_key5,sh_key6,sh_key7,sh_key8,sh_key9;
-wire [0:127] mx_key0,mx_key1,mx_key2,mx_key3,mx_key4,mx_key5,mx_key6,mx_key7,mx_key8;
-wire [0:127] gen_key0,gen_key1,gen_key2,gen_key3,gen_key4,gen_key5,gen_key6,gen_key7,gen_key8,gen_key9;
+module aes128_encryption(plaintext,key,en_msg);
+input [0:127] plaintext,key;
+output [0:127] en_msg;
+wire [0:127] en_msg0,en_msg1,en_msg2,en_msg3,en_msg4,en_msg5,en_msg6,en_msg7,en_msg8;
+wire [0:127] subbyte0,subbyte1,subbyte2,subbyte3,subbyte4,subbyte5,subbyte6,subbyte7,subbyte8,subbyte9;
+wire [0:127] shiftrow0,shiftrow1,shiftrow2,shiftrow3,shiftrow4,shiftrow5,shiftrow6,shiftrow7,shiftrow8,shiftrow9;
+wire [0:127] mixcol0,mixcol1,mixcol2,mixcol3,mixcol4,mixcol5,mixcol6,mixcol7,mixcol8;
+wire [127:0] key1,key2,key3,key4,key5,key6,key7,key8,key9,key10;
 wire [0:127] pr_key;
 
-//pre round operation
-assign pr_key = data^key;
+//code to generate round keys
+round_key11 r1(key,key1,key2,key3,key4,key5,key6,key7,key8,key9,key10);
+assign pr_key = plaintext^key;
 
 //Round1
-sub_byte s0(pr_key,s_key0);
-shift_row s00(s_key0,sh_key0);
-mix_col  m0(sh_key0,mx_key0);
-key_gen k0(key,mx_key0,32'h01000000,gen_key0,en_key0);
+sub_byte s0(pr_key,subbyte0);
+shift_row s00(subbyte0,shiftrow0);
+mix_col  m0(shiftrow0,mixcol0);
+assign en_msg0 = mixcol0 ^ key1;
 
 //Round2
-sub_byte s1(en_key0,s_key1);
-shift_row s01(s_key1,sh_key1);
-mix_col  m1(sh_key1,mx_key1);
-key_gen k1(gen_key0,mx_key1,32'h02000000,gen_key1,en_key1);
+sub_byte s1(en_msg0,subbyte1);
+shift_row s01(subbyte1,shiftrow1);
+mix_col  m1(shiftrow1,mixcol1);
+assign en_msg1 = mixcol1 ^ key2;
 
 //Round3
-sub_byte s2(en_key1,s_key2);
-shift_row s02(s_key2,sh_key2);
-mix_col  m2(sh_key2,mx_key2);
-key_gen k2(gen_key1,mx_key2,32'h04000000,gen_key2,en_key2);
+sub_byte s2(en_msg1,subbyte2);
+shift_row s02(subbyte2,shiftrow2);
+mix_col  m2(shiftrow2,mixcol2);
+assign en_msg2 = mixcol2 ^ key3;
 
 //Round4
-sub_byte s3(en_key2,s_key3);
-shift_row s03(s_key3,sh_key3);
-mix_col  m3(sh_key3,mx_key3);
-key_gen k3(gen_key2,mx_key3,32'h08000000,gen_key3,en_key3);
+sub_byte s3(en_msg2,subbyte3);
+shift_row s03(subbyte3,shiftrow3);
+mix_col  m3(shiftrow3,mixcol3);
+assign en_msg3 = mixcol3 ^ key4;
 
 //Round5
-sub_byte s4(en_key3,s_key4);
-shift_row s04(s_key4,sh_key4);
-mix_col  m4(sh_key4,mx_key4);
-key_gen k4(gen_key3,mx_key4,32'h10000000,gen_key4,en_key4);
+sub_byte s4(en_msg3,subbyte4);
+shift_row s04(subbyte4,shiftrow4);
+mix_col  m4(shiftrow4,mixcol4);
+assign en_msg4 = mixcol4 ^ key5;
 
 //Round6
-sub_byte s5(en_key4,s_key5);
-shift_row s05(s_key5,sh_key5);
-mix_col  m5(sh_key5,mx_key5);
-key_gen k5(gen_key4,mx_key5,32'h20000000,gen_key5,en_key5);
+sub_byte s5(en_msg4,subbyte5);
+shift_row s05(subbyte5,shiftrow5);
+mix_col  m5(shiftrow5,mixcol5);
+assign en_msg5 = mixcol5 ^ key6;
 
 //Round7
-sub_byte s6(en_key5,s_key6);
-shift_row s06(s_key6,sh_key6);
-mix_col  m6(sh_key6,mx_key6);
-key_gen k6(gen_key5,mx_key6,32'h40000000,gen_key6,en_key6);
+sub_byte s6(en_msg5,subbyte6);
+shift_row s06(subbyte6,shiftrow6);
+mix_col  m6(shiftrow6,mixcol6);
+assign en_msg6 = mixcol6 ^ key7;
 
 //Round8
-sub_byte s7(en_key6,s_key7);
-shift_row s07(s_key7,sh_key7);
-mix_col  m7(sh_key7,mx_key7);
-key_gen k7(gen_key6,mx_key7,32'h80000000,gen_key7,en_key7);
+sub_byte s7(en_msg6,subbyte7);
+shift_row s07(subbyte7,shiftrow7);
+mix_col  m7(shiftrow7,mixcol7);
+assign en_msg7 = mixcol7 ^ key8;
 
 //Round9
-sub_byte s8(en_key7,s_key8);
-shift_row s08(s_key8,sh_key8);
-mix_col  m8(sh_key8,mx_key8);
-key_gen k8(gen_key7,mx_key8,32'h1b000000,gen_key8,en_key8);
+sub_byte s8(en_msg7,subbyte8);
+shift_row s08(subbyte8,shiftrow8);
+mix_col  m8(shiftrow8,mixcol8);
+assign en_msg8 = mixcol8 ^ key9;
 
 //Round10
-sub_byte s9(en_key8,s_key9);
-shift_row s09(s_key9,sh_key9);  
-//no mix column
-key_gen k9(gen_key8,sh_key9,32'h36000000,gen_key9,en_key);
+sub_byte s9(en_msg8,subbyte9);
+shift_row s09(subbyte9,shiftrow9);//no mix column
+assign en_msg = shiftrow9 ^ key10;
 
 endmodule
